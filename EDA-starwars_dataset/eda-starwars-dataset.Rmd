@@ -1,0 +1,121 @@
+---
+title: "EDA of Star Wars Dataset"
+---
+
+```{r}
+library(tidyverse)
+data()
+```
+
+```{r}
+?starwars
+```
+
+```{r}
+dim(starwars)
+```
+
+```{r}
+str(starwars)  # structure
+```
+
+```{r}
+glimpse(starwars)
+```
+
+```{r}
+View(starwars)
+```
+
+```{r}
+head(starwars)
+```
+
+```{r}
+tail(starwars)
+```
+
+```{r}
+attach(starwars)
+names(starwars) # names of variables
+```
+
+```{r}
+length(starwars)
+```
+
+```{r}
+class(hair_color)
+```
+
+```{r}
+unique(hair_color)
+```
+
+```{r}
+table(hair_color)
+```
+
+```{r}
+sort(table(hair_color), decreasing=TRUE)
+```
+
+```{r}
+View(sort(table(hair_color), decreasing=TRUE))
+```
+
+```{r}
+barplot(sort(table(eye_color), decreasing=TRUE))
+```
+
+```{r}
+starwars %>%
+  select(hair_color) %>%
+  count(hair_color) %>%
+  arrange(desc(n)) %>%
+  View()
+```
+
+```{r}
+starwars[is.na(hair_color), ]
+```
+
+```{r}
+View(starwars[is.na(hair_color), ])
+```
+
+```{r}
+class(height)
+```
+
+```{r}
+length(height)
+```
+
+```{r}
+summary(height)
+```
+
+```{r}
+boxplot(height)
+```
+
+```{r}
+hist(height)
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
