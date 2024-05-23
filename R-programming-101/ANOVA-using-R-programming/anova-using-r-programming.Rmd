@@ -1,0 +1,77 @@
+---
+title: "Anova using R programming"
+output: github_document
+---
+
+```{r}
+# Explore
+# Clean
+# Manipulate
+# Describe and Summarize
+# Visualize
+# Analyse
+##### Analyze your data --- ANOVA 
+```
+
+```{r}
+library(tidyverse)
+library(patchwork)
+library(gapminder)
+library(forcats)
+```
+
+```{r}
+data()
+```
+
+```{r}
+head(gapminder)
+```
+
+```{r}
+# Create a data set to work with 
+gapdata <- gapminder %>%
+  filter(year == 2007 & 
+           continent %in% c("Americas", "Europe", "Asia")) %>%
+  select(continent, lifeExp)
+```
+
+```{r}
+gapdata
+```
+
+```{r}
+# Take a look at the distribution of means 
+gapdata %>%
+  group_by(continent) %>%
+  summarise(Mean_life = mean(lifeExp)) %>%
+  arrange(Mean_life)
+```
+
+```{r}
+# Create ANOVA model
+gapdata %>%
+  aov(lifeExp ~ continent, data = .) %>%
+  summary()
+```
+
+```{r}
+aov_model <- gapdata %>%
+  aov(lifeExp ~ continent, data = .)
+```
+
+```{r}
+# Is this significance being driven by a particular continent?
+gapdata %>%
+  aov(lifeExp ~ continent, data=.) %>%
+  TukeyHSD() #%>%
+```
+
+```{r}
+# The difference between Asia and the Americas has an adjusted p value of 0.14 (not significant) and a 95% CI that overlaps 0
+```
+
+```{r}
+
+```
+

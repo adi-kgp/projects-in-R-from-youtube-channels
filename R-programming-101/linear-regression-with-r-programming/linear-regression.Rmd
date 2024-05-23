@@ -1,0 +1,56 @@
+---
+title: Linear Regression Models in R
+output: github_document
+---
+
+```{r}
+library(tidyverse)
+head(cars, 10)
+```
+
+```{r}
+cars %>%
+  lm(dist ~ speed, data=.) %>%
+  summary()
+```
+
+```{r}
+mod <- lm(dist ~speed, data=cars)
+mod
+```
+
+```{r}
+summary(mod)
+```
+
+```{r}
+attributes(mod)
+```
+
+```{r}
+mod$residuals
+```
+
+```{r}
+hist(mod$residuals)
+```
+
+```{r}
+new_speeds <- data.frame(speed = c(10, 15, 20))
+```
+
+```{r}
+predict(mod, new_speeds) %>% round(1)
+```
+
+```{r}
+# same process with pipe operators
+cars %>%
+  lm(dist ~ speed, data=.) %>%
+  predict(data.frame(speed = c(10,15,20))) %>%
+  round()
+```
+
+```{r}
+
+```
