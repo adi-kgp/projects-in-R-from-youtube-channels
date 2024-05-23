@@ -3,25 +3,89 @@ title: bar charts and histograms using ggplot
 output: github_document
 ---
 ```{r}
-
+library(tidyverse)
+View(msleep)
 ```
 
 ```{r}
-
+# single categorical
+names(msleep)
 ```
 
 ```{r}
-
+msleep %>%
+  drop_na(vore) %>%
+  ggplot(aes(x = vore))+
+  geom_bar(fill = "#97B3C6")+
+  theme_bw()+
+  labs(x="Vore",
+       y= NULL,
+       title = "Number of observations per order")
 ```
 
 ```{r}
-
+msleep %>%
+  #drop_na(vore) %>%
+  ggplot(aes(x = vore))+
+  geom_bar(fill = "#97B3C6")+
+  theme_bw()+
+  labs(x="Vore",
+       y= NULL,
+       title = "Number of observations per order")
 ```
 
 ```{r}
-
+msleep %>%
+  #drop_na(vore) %>%
+  ggplot(aes(x = vore))+
+  geom_bar(fill = "#97B3C6")+
+  coord_flip()+
+  theme_bw()+
+  labs(x="Vore",
+       y= NULL,
+       title = "Number of observations per order")
 ```
 
 ```{r}
-
+msleep %>%
+  drop_na(vore) %>%
+  ggplot(aes(fct_infreq(vore)))+
+  geom_bar(fill = "#97B3C6")+
+  coord_flip()+
+  theme_bw()+
+  labs(x="Vore",
+       y= NULL,
+       title = "Number of observations per order")
 ```
+
+```{r}
+# single numeric
+msleep %>%
+  ggplot(aes(awake))+
+  geom_histogram(binwidth=2, fill="#97B3C6")+
+  theme_bw()+
+  labs(x="Total Sleep",
+       y= NULL,
+       title = "Histogram of total sleep")
+```
+
+```{r}
+msleep %>%
+  ggplot(aes(awake))+
+  geom_histogram(binwidth=1, fill="#97B3C6")+
+  theme_bw()+
+  labs(x="Total Sleep",
+       y= NULL,
+       title = "Histogram of total sleep")
+```
+
+```{r}
+msleep %>%
+  ggplot(aes(awake))+
+  geom_histogram(binwidth=3, fill="#97B3C6")+
+  theme_bw()+
+  labs(x="Total Sleep",
+       y= NULL,
+       title = "Histogram of total sleep")
+```
+

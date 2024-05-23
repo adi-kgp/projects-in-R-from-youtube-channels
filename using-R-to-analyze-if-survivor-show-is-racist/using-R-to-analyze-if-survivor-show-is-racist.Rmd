@@ -1,0 +1,75 @@
+---
+title: "Is Survivor Racist?"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+```
+
+## Libraries
+```{r}
+library(survivoR)
+library(dplyr)
+library(ggplot2)
+```
+
+```{r}
+# Join the castaway tables
+castaways = inner_join(
+  castaways,
+  castaway_details,
+  by="castaway_id",
+  keep=FALSE
+)
+```
+
+```{r}
+View(castaway_details)
+```
+
+```{r}
+names(castaways)
+```
+
+```{r}
+View(castaways)
+```
+
+
+```{r}
+# If ethnicity is null, copy POC over
+castaways = castaways %>%
+  mutate(ethnicity = coalesce(ethnicity, poc))
+```
+
+```{r}
+# If race is null, copy ethnicity over
+castaways = castaways %>% 
+  mutate(race = coalesce(race, ethnicity))
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
