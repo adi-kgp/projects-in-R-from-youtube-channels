@@ -1,0 +1,102 @@
+---
+title: Data Visualization using ggplot2
+output: github_document
+---
+
+```{r}
+### Data visualization
+
+# data
+# mapping (aesthetics)
+# geometric representation
+# statistics
+# facet
+# coordinate space
+# labels
+# theme
+
+library(tidyverse)
+```
+
+```{r}
+BOD
+
+```
+
+```{r}
+ggplot(data = BOD, 
+       mapping = aes(x = Time, 
+                     y = demand))+
+  geom_point(size = 5)+
+  geom_line(colour = "red")
+```
+
+```{r}
+ggplot(BOD, aes(Time, demand))+
+  geom_point(size=3)+
+  geom_line(colour = "red")
+
+```
+
+```{r}
+CO2
+```
+
+```{r}
+CO2 %>%
+  ggplot(aes(conc, uptake, 
+             colour = Treatment))+
+  geom_point(size = 3, alpha = 0.5)+
+  geom_smooth(method=lm, se=F)+
+  facet_wrap(~Type)+
+  labs(title="Concentration of CO2")+
+  theme_bw()
+```
+
+```{r}
+CO2 %>%
+  ggplot(aes(Treatment, uptake))+
+  geom_boxplot()+
+  geom_point(alpha=0.5,
+    aes(size = conc,
+                 colour = Plant))+
+  facet_wrap(~Type)+
+  coord_flip()+
+  theme_bw()+
+  labs(title="Chilled vs Non-chilled")
+```
+
+```{r}
+mpg
+```
+
+```{r}
+names(mpg)
+```
+
+```{r}
+mpg %>%
+  filter(cty < 25) %>%
+  ggplot(aes(displ, cty))+
+  geom_point(aes(colour=drv,
+                 size=trans),
+             alpha=0.5)+
+  geom_smooth(method=lm)+
+  facet_wrap(~year, nrow=1)+
+  labs(x = "Engine size",
+       y = "MPG in the city",
+       title = "Fuel efficiency")+
+  theme_bw()
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
