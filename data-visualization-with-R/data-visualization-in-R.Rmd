@@ -1,0 +1,132 @@
+---
+title: Data visualization with R
+output: github_document
+---
+
+```{r}
+library(tidyverse)
+library(modeldata)
+```
+
+```{r}
+crickets
+```
+
+```{r}
+# The basics
+ggplot(crickets, aes(x = temp,
+                     y = rate,
+                     color = species)) + 
+  geom_point() +
+  labs(x = "Temperature",
+       y = "Chirp Rate",
+       color = "Species",
+       title = "Cricket chirps",
+       caption="source: Macdonald (2009)") + 
+  scale_color_brewer(palette = "Dark2")
+```
+
+```{r}
+# Modifying basic properties of the plot
+ggplot(crickets, aes(x = temp,
+                     y = rate,
+                     color = species)) + 
+  geom_point(color = "red",
+             size = 2,
+             alpha = .3,
+             shape = "square") +
+  labs(x = "Temperature",
+       y = "Chirp Rate",
+       color = "Species",
+       title = "Cricket chirps",
+       caption="source: Macdonald (2009)") + 
+  scale_color_brewer(palette = "Dark2")
+```
+
+```{r}
+# Adding another layer
+ggplot(crickets, aes(x = temp,
+                     y = rate)) + 
+  geom_point() +
+  geom_smooth(method = "lm",
+              se = F)
+  labs(x = "Temperature",
+       y = "Chirp Rate",
+       color = "Species",
+       title = "Cricket chirps",
+       caption="source: Macdonald (2009)")
+```
+
+```{r}
+ggplot(crickets, aes(x = temp,
+                     y = rate,
+                     color = species)) + 
+  geom_point() +
+  geom_smooth(method="lm",
+              se = FALSE) +
+  labs(x = "Temperature",
+       y = "Chirp Rate",
+       color = "Species",
+       title = "Cricket chirps",
+       caption="source: Macdonald (2009)") + 
+  scale_color_brewer(palette = "Dark2")
+```
+
+```{r}
+# Other plots
+ggplot(crickets, aes(x = rate)) + 
+  geom_histogram(bins = 15) # one quantitative variable
+```
+
+```{r}
+ggplot(crickets, aes(x = rate)) + 
+  geom_freqpoly(bins = 15) # one quantitative variable
+```
+
+```{r}
+ggplot(crickets, aes(x = species)) + 
+  geom_bar(color="black",
+           fill="lightblue")
+```
+
+```{r}
+ggplot(crickets, aes(x = species,
+                     fill = species)) + 
+  geom_bar(show.legend = FALSE) + 
+  scale_fill_brewer(palette = "Dark2")
+  
+```
+
+```{r}
+ggplot(crickets, aes(x = species,
+                     y = rate,
+                     color = species)) +
+  geom_boxplot(show.legend = FALSE) +
+  scale_color_brewer(palette = "Dark2") 
+```
+
+```{r}
+# faceting
+ggplot(crickets, aes(x = rate,
+                      fill=species)) +
+  geom_histogram(bins=15) +
+  scale_fill_brewer(palette = "Dark2")
+```
+
+```{r}
+ggplot(crickets, aes(x = rate,
+                     fill = species)) +
+  geom_histogram(bins = 15,
+                 show.legend = FALSE) + 
+  facet_wrap(~species,
+             ncol=1)+
+  scale_fill_brewer(palette = "Dark2")
+```
+
+```{r}
+
+```
+
+```{r}
+
+```

@@ -1,0 +1,27 @@
+---
+title: bar charts and histograms using ggplot
+output: github_document
+---
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
