@@ -1,0 +1,132 @@
+---
+title: **The Basics of Multiple Regression**
+output: github_document
+---
+
+Now that you understand the principles of simple linear regression, its not too difficult to build upon that and move onto multiple regression. 
+
+Multiple Regression is similar to simple linear regression, but instead of predicting the outcome variable's values based on one explanatory variable, it predicts
+based on two or more explanatory variables. The relationship between each explanatory variable and the outcome variable is examined while holding other variables constant. If necessary, interaction effects can be included to understand how the relationship between variables might change in combination with each other (but
+more about that later).
+
+Well look at adding numeric and categorical variables below and then consider how it is that we can select variables that should be included in the model.
+
+**Adding a numeric variable**
+
+Adding numeric explanatory variables is exactly the same. Let's take a look at the trees dataset. 
+
+```{r message=FALSE, error=FALSE, warning=FALSE}
+library(tidyverse)
+data(trees)
+trees
+```
+
+
+```{r message=FALSE, error=FALSE, warning=FALSE}
+trees %>%
+  ggplot(aes(Girth, Volume, color=Height))+
+  geom_point()+
+  geom_smooth(method=lm, se=F)+
+  theme_bw()+
+  labs(title="Tree Volume Explained by Girth and Height")
+```
+
+Now let's create a model and summary to take a closer look at these relationships:
+```{r message=FALSE, error=FALSE, warning=FALSE}
+lm(Volume ~ Girth + Height , data = trees) %>%
+  summary()
+```
+In a nutshell, both Girth and Height are associated with an increase in Volume (as you would expect). They are both statistically significant as is the model as a whose. Together they explain 94% of change in Volume
+
+**Adding a categorical variable with two categories**
+
+Let's start by looking at the dataset mpg and take a look at the relationship between engine size (displ) and fuel consumption while driving on the highway (hwy):
+```{r message=FALSE, error=FALSE, warning=FALSE}
+mpg %>%
+  ggplot(aes(x = displ, 
+             y = hwy))+
+  geom_jitter()+
+  geom_smooth(method=lm, se=F)+
+  theme_bw()+
+  labs(title= "Highway Fuel Efficiency explained by engine size",
+       x = "Engine size",
+       y = "Highway fuel efficiency")
+```
+The relationship that we see makes intuitive sense, i.e. cars with bigger engines use more fuel. Before adding additional variables, let's look at the simple linear model that we can get from this data:
+
+```{r message=FALSE, error=FALSE, warning=FALSE}
+lm(hwy ~ displ, data=mpg) %>%
+  summary()
+```
+
+Our first stab at the data tells us that if we consider engine size alone as an explanatory variable, we see that for every 1 litre increase in engine size the car will get 3.5 fewer miles per gallon of fuel when travelling on the highway (the slope coefficient is 3.5). We can also see that 58.7% of the change in fuel efficiency can be explained by changes in engine size (R2 = 0.5868).
+
+We might expect there to be a difference between four wheel drive cars and two wheel drive cars in terms of fuel efficiency and so we might want to build that into our model. 
+
+Let's start by visualizing the data:
+
+```{r message=FALSE, error=FALSE, warning=FALSE}
+mpg %>%
+  mutate(drv = fct_recode(drv, "2" = "f", "2" = "r"))%>%
+  ggplot(aes(displ, hwy, color = drv))+
+  geom_point()+
+  geom_smooth(method= lm, se=F)+
+  theme_bw()+
+  labs(title="Highway fuel efficiency explained by engine size",
+       x = "Engine Size",
+       y = "Highway Fuel Efficiency",
+       color = "Drive")
+```
+
+```{r message=FALSE, error=FALSE, warning=FALSE}
+mpg %>%
+  mutate(drv = fct_recode(drv, "2"="f", "2"="r"))%>%
+  lm(hwy ~ displ + drv, data=.)%>%
+  summary()
+```
+**Adding a categorical explanatory variable with more than two categories:**
+
+Now let's take a look at some penguin data that comes with the *palmerpenguins* package:
+```{r message=FALSE, error=FALSE, warning=FALSE}
+# Call palmerpenguins package
+library(palmerpenguins)
+
+# Plot Bill length vs Bill depth
+penguins %>%
+  ggplot(aes(bill_depth_mm, bill_length_mm))+
+  geom_point()+
+  geom_smooth(method=lm, se=F)+
+  theme_bw()+
+  labs(title="Penguin Bill Length explained by Bill Depth",
+       x="Bill Depth",
+       y="Bill Length")
+```
+
+Lets redo this plot but this time, we will dis-aggregate the data by species type:
+```{r message=FALSE, error=FALSE, warning=FALSE}
+penguins %>%
+  ggplot(aes(bill_depth_mm, bill_length_mm))+
+  geom_point(aes(color=species), alpha=0.7)+
+  geom_smooth(aes(color=species), method=lm, se=F)+
+  theme_bw()+
+  labs(title="Penguin Bill Length explained by Bill Depth",
+       x = "Bill Depth",
+       y = "Bill Length")
+```
+Let's build our simple linear model by using the + symbol to add the extra variable:
+```{r message=FALSE, error=FALSE, warning=FALSE}
+lm(bill_length_mm ~ bill_depth_mm + species, data=penguins) %>%
+  summary()
+```
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+

@@ -1,0 +1,48 @@
+---
+title: friedman-test
+output: github_document
+---
+
+```{r}
+library(tidyverse) # for everything :)
+library(datarium) # for marketing data
+```
+
+```{r}
+View(marketing)
+```
+
+```{r}
+marketing
+```
+
+```{r}
+d <- marketing %>%
+  select(youtube, facebook, newspaper) %>%
+  rowid_to_column() %>%
+  gather(key = "channel",
+         value = "money", youtube:newspaper) %>%
+    group_by(channel) %>%
+    slice(20:35) # looks better
+```
+
+```{r}
+d
+```
+
+```{r}
+View(d)
+```
+
+```{r}
+library(ggstatsplot)
+```
+
+```{r}
+ggwithinstats(
+  data = d,
+  x = channel,
+  y = money,
+  type = "nonparametric"
+)
+```
